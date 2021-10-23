@@ -27,6 +27,10 @@ class DashConsumer(AsyncWebsocketConsumer):
         print('TextData=>',text_data)
         # pass
         # await super().receive(text_data=text_data, bytes_data=bytes_data)
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 628e853ac584df5a4264359e160e0a0610ef8ee4
     async def deprocessing(self,event):
         OtherLong = event['long']
         OtherLat = event['lat']
