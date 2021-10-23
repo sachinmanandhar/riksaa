@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 400px;
+        width: 100%;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
+    <title>Real TIme Location example</title>
+  </head>
+  <body>
+    <h2>Real TIme Location example</h2>
+    <div id="map" class="map"></div>
+    <script>
+      let socket = new WebSocket('ws://localhost:8000/ws/polData/');
+      socket.onopen = function(e){
+        alert("Connection Established")
+      }
+      socket.onmessage = function(e){
+        
+        // console.log(JSON.parse(e.data).long)
+        var RecData = JSON.parse(e.data);
+        geojsonObject.features[0].geometry.coordinates = [RecData.lat,RecData.long];
+        // geojsonObject.features[0].geometry.coordinates[1] = RecData.long;
+        console.log(geojsonObject.features[0].geometry.coordinates);
+
+        // geojsonObject.features[0].geometry.coordinates =[85.638377429864042, 27.619667651522228]
+        // window.myLine.update()
+
+        // vectorLayer.getSource().changed();
+        // vectorLayer.changed();
+
+        // vectorLayer.refresh({force:true});
+
+        // vectorLayer.redraw()
+
+        // map.updateSize();
+
+        // vectorLayer.source().updateParams({CQL_FILTER:"1=1"});
+
+        // vectorLayer.getSource().refresh()
+    
+
+        // map.render();
+      };
+      socket.onclose = function(e){
+        alert("Connection Closed")
+      }
+    </script>
+    <script type="text/javascript">
+
+var geojsonObject = {
+"type": "FeatureCollection",
+"name": "campus",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1, "name_id": "ku_corner_campus" }, "geometry": { "type": "Point", "coordinates": [ 85.538377429864042, 27.619667651522228 ] } },
+]
+}
+const vectorSource = new ol.source.Vector({
+  features: new ol.format.GeoJSON().readFeatures(geojsonObject),
+});
+const vectorLayer = new ol.layer.Vector({
+  source: vectorSource,
+  // style: styleFunction,
+});
+var DataObj = {
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          }),
+          vectorLayer
+        ],
+        view: new ol.View({
+          projection: 'EPSG:4326',
+          center: [85.5386, 27.6195],
+          zoom: 8
+        })
+      }
+      var map = new ol.Map(DataObj);
+      // map.addLayer(vectorLayer)
+    </script>
+
+  </body>
+</html>
+
