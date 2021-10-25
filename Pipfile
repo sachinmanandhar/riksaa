@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django-extensions = "*"
+pytz = "==2018.5"
+redis = "==2.10.6"
+Django = "==3.0.0"
+Pillow = "*"
+django-channels = "*"
+postgres = "*"
+websocket-client = "*"
+channels = "*"
+channels-redis = "*"
+pip = "*"
+install = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
