@@ -25,6 +25,16 @@
         // console.log(JSON.parse(e.data).long)
         var RecData = JSON.parse(e.data);
         geojsonObject.features[0].geometry.coordinates = [RecData.lat,RecData.long];
+
+        var coordinates = geojsonObject.features[0].geometry.coordinates;
+      var PointFeature = new ol.Feature({
+        geometry: new ol.geom.Point(coordinates),
+        name: 'LiveLocation'
+      });
+      vectorSource.clear();
+      vectorSource.addFeature(PointFeature);
+
+
         // geojsonObject.features[0].geometry.coordinates[1] = RecData.long;
         console.log(geojsonObject.features[0].geometry.coordinates);
 
