@@ -9,15 +9,16 @@ pytz = "==2018.5"
 redis = "==2.10.6"
 Django = "==3.0.0"
 Pillow = "*"
-django-channels = "*"
 postgres = "*"
 websocket-client = "*"
-channels = "*"
 channels-redis = "*"
 pip = "*"
 install = "*"
 djangorestframework-simplejwt = "*"
 drf-spectacular = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+channels = "*"
 
 [dev-packages]
 
