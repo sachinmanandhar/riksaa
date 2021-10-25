@@ -17,16 +17,67 @@
     <div id="map" class="map"></div>
     <script>
       let socket = new WebSocket('ws://localhost:8000/ws/polData/');
+      // let numberofConnection = 0
       socket.onopen = function(e){
-        alert("Connection Established")
+        alert(`New Connection Established,Total Connection`)
+        
+         
       }
       socket.onmessage = function(e){
         
         // console.log(JSON.parse(e.data).long)
         var RecData = JSON.parse(e.data);
-        geojsonObject.features[0].geometry.coordinates = [RecData.lat,RecData.long];
+        console.log(RecData)
+        userId = RecData.riderId
+
+        
+
+        if (!UserIdList.includes(userId)){
+          UserIdList.push(userId)
+          AllFeatures.push(RecData)
+        }
+
+        AllFeatures.forEach(el => {
+          if (userId == el.riderId){
+            el.long =RecData.long;
+            el.lat = RecData.lat
+          }
+        })
+        console.log(UserIdList)
+
+        console.log(AllFeatures);
+        vectorSource.clear();
+        AllFeatures.forEach(el => {
+          var PointFeature = new ol.Feature({
+        geometry: new ol.geom.Point([el.lat,el.long]),
+        name: 'LiveLocation'
+      }); 
+      vectorSource.addFeature(PointFeature);
+        })
+
+
+        // geojsonObject.features[0].geometry.coordinates = [RecData.lat,RecData.long];
+
+        // var coordinates = geojsonObject.features[0].geometry.coordinates;
+
+
+
+      // var PointFeature = new ol.Feature({
+      //   geometry: new ol.geom.Point(coordinates),
+      //   name: 'LiveLocation'
+      // });
+      // var PointFeature0 = new ol.Feature({
+      //   geometry: new ol.geom.Point([85.638377429864042, 27.619667651522228]),
+      //   name: 'LiveLocation'
+      // });
+      
+      // vectorSource.addFeature(PointFeature);
+      // vectorSource.addFeature(PointFeature0);
+
+
+
         // geojsonObject.features[0].geometry.coordinates[1] = RecData.long;
-        console.log(geojsonObject.features[0].geometry.coordinates);
+        
 
         // geojsonObject.features[0].geometry.coordinates =[85.638377429864042, 27.619667651522228]
         // window.myLine.update()
@@ -52,7 +103,8 @@
       }
     </script>
     <script type="text/javascript">
-
+var UserIdList = []
+var AllFeatures = []
 var geojsonObject = {
 "type": "FeatureCollection",
 "name": "campus",
