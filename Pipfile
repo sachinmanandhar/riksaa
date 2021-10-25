@@ -16,6 +16,8 @@ channels = "*"
 channels-redis = "*"
 pip = "*"
 install = "*"
+djangorestframework-simplejwt = "*"
+drf-spectacular = "*"
 
 [dev-packages]
 
