@@ -20,6 +20,15 @@ class DashConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_send(
             self.groupname,
             {
+                'type':"rider_position_buffer",
+                'long':long,
+                'lat':lat,
+                'userId':userId
+            }
+        )
+        await self.channel_layer.group_send(
+            self.groupname,
+            {
                 'type':'deprocessing',
                 'long':long,
                 'lat':lat,
@@ -29,6 +38,8 @@ class DashConsumer(AsyncWebsocketConsumer):
         print('TextData=>',text_data)
         # pass
         # await super().receive(text_data=text_data, bytes_data=bytes_data)
+    async def rider_position_buffer(self,event):
+        print(event)
     async def deprocessing(self,event):
         OtherLong = event['long']
         OtherLat = event['lat']

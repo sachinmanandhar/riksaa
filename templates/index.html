@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -43,9 +44,6 @@
             el.lat = RecData.lat
           }
         })
-        console.log(UserIdList)
-
-        console.log(AllFeatures);
         vectorSource.clear();
         AllFeatures.forEach(el => {
           var PointFeature = new ol.Feature({
@@ -113,12 +111,19 @@ var geojsonObject = {
 { "type": "Feature", "properties": { "id": 1, "name_id": "ku_corner_campus" }, "geometry": { "type": "Point", "coordinates": [ 85.538377429864042, 27.619667651522228 ] } },
 ]
 }
-const vectorSource = new ol.source.Vector({
-  features: new ol.format.GeoJSON().readFeatures(geojsonObject),
+var iconStyle = new ol.style.Style({
+  image: new ol.style.Icon({
+    anchor: [0.5, 46],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'pixels',
+    src: "{% static 'images/icon/tuk-tuk.png' %}",
+    scale: 0.04
+  }),
 });
+const vectorSource = new ol.source.Vector();
 const vectorLayer = new ol.layer.Vector({
   source: vectorSource,
-  // style: styleFunction,
+  style: iconStyle,
 });
 var DataObj = {
         target: 'map',

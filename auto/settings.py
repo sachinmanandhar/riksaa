@@ -151,6 +151,11 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+#Location of static files
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
+
+MEDIA_URL = "/images/"
+    
 AUTH_USER_MODEL = 'auth_app.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
