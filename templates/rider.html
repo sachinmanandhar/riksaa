@@ -11,13 +11,13 @@
       }
     </style>
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
-    <title>Real TIme Location example</title>
+    <title>Customer Page</title>
   </head>
   <body>
     <h2>Real TIme Location example</h2>
     <div id="map" class="map"></div>
     <script>
-      let socket = new WebSocket('ws://localhost:8000/ws/rider_on/');
+      let socket = new WebSocket('ws://localhost:8000/ws/booking_request/');
       // let numberofConnection = 0
       socket.onopen = function(e){
         alert(`New Connection Established,Total Connection`)
@@ -29,7 +29,6 @@
         // console.log(JSON.parse(e.data).long)
         var RecData = JSON.parse(e.data);
         console.log(RecData)
-        userId = RecData.riderId
 
         
 
@@ -45,13 +44,13 @@
           }
         })
         vectorSource.clear();
-        AllFeatures.forEach(el => {
-          var PointFeature = new ol.Feature({
-        geometry: new ol.geom.Point([el.long,el.lat,]),
-        name: 'LiveLocation'
-      }); 
-      vectorSource.addFeature(PointFeature);
-        })
+    //     AllFeatures.forEach(el => {
+    //       var PointFeature = new ol.Feature({
+    //     geometry: new ol.geom.Point([el.lat,el.long]),
+    //     name: 'LiveLocation'
+    //   }); 
+    //   vectorSource.addFeature(PointFeature);
+    //     })
 
 
         // geojsonObject.features[0].geometry.coordinates = [RecData.lat,RecData.long];

@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework_simplejwt',
     'drf_spectacular',
+    'rest_framework',
+    'djoser',
 
     
 
@@ -81,7 +83,7 @@ TEMPLATES = [
 ]
 
 ASGI_APPLICATION = 'auto.routing.application'
-WSGI_APPLICATION = 'auto.wsgi.application'
+# WSGI_APPLICATION = 'auto.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

@@ -6,7 +6,8 @@ from channels.security.websocket import AllowedHostsOriginValidator, OriginValid
 from map_app import consumer
 
 websocket_urlPattern = [
-    path('ws/polData/', consumer.CustomerDashboardConsumer.as_asgi()),
+    path('ws/rider_on/', consumer.CustomerDashboardConsumer.as_asgi()),
+    path('ws/booking_request/', consumer.BookingRequestConsumer.as_asgi())  
 ]
 application = ProtocolTypeRouter ({
    'websocket': AuthMiddlewareStack(URLRouter(

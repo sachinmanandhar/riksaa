@@ -1,6 +1,6 @@
 import os
 
-from django.db import models
+from django.contrib.gis.db import models
 from django.conf import settings
 from django.db.models.fields import related
 from django.contrib.auth.models import AbstractUser
@@ -36,7 +36,14 @@ def get_document_path(instance, document):
     # _, document_extension = os.path.splitext(document)
     # file_name = instance.user.username + document_extension
     return os.path.join("company_document", instance.user.username, document)
-
+# class LocationData(models.Model):
+#     user = models.ForeignKey(User, 
+#         null=True,  
+#         related_name='online_riders',
+#         related_query_name='online_rider',
+#         on_delete=models.CASCADE)
+#     long = models.FloatField(null=True,blank=True)
+#     lat = models.FloatField(null=True,blank=True)
 class Rider(models.Model):
     user = models.OneToOneField(
         User,
@@ -44,13 +51,24 @@ class Rider(models.Model):
         related_query_name='rider',
         on_delete=models.CASCADE
     )
-
+    # long = models.FloatField(null=True,blank=True)
+    # lat = models.FloatField(null=True,blank=True)
+    loc = models.PointField(null=True,blank=True,srid=4326)
+    isOnline = models.BooleanField(default=False)
     rider_type = models.ForeignKey(
         RiderType,
         related_name='riders',
         related_query_name='rider',
         on_delete=models.CASCADE
     )
+    # location = models.ForeignKey(
+    #     LocationData,
+    #     blank=True,
+    #     null =True,
+    #     related_name='location',
+    #     related_query_name='location',
+    #     on_delete=models.CASCADE
+    # )
 
     profile_picture = models.ImageField(upload_to=get_image_path, null=False, blank=False)
     valid_docs = models.FileField(upload_to=get_document_path, null=False, blank=False)
@@ -75,6 +93,7 @@ class Customer(models.Model):
 
 
 
+    # pointField = models.PointField()
 class Role(models.Model):
     role = models.CharField(max_length=100, unique=True)
 
